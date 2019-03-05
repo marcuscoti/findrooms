@@ -24,11 +24,11 @@ class City(models.Model):
     name = models.CharField(max_length=50)
 
     def __unicode__(self):
-        full_name = self.name + "-" + self.state
+        full_name = self.name + "-" + self.state.code
         return full_name
 
     def __str__(self):
-        full_name = self.name + "-" + self.state
+        full_name = self.name + "-" + self.state.code
         return full_name
 
     class Meta:
