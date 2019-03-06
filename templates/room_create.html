@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load render_form_field %}
+{% block head_title %}
+    {{block.super}} | Anúncio de Quarto
+{% endblock head_title %}
+
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+
+{% block content %}
+
+<h1>Nova Anúncio de Quarto</h1>
+<div class="row">
+    <div class="col-12">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% render_form_field form.title %}
+            {% render_form_field form.building %}
+            {% render_form_field form.type %}
+            {% render_form_field form.bathroom %}
+            {% render_form_field form.gender %}
+            {% render_form_field form.description %}
+            {% render_form_field form.smoking %}
+            {% render_form_field form.garage %}
+            {% render_form_field form.include_bills %}
+            {% render_form_field form.visits %}
+            {% render_form_field form.internet %}
+            {% render_form_field form.furniture %}
+            {% render_form_field form.value %}
+            {% render_form_field form.state %}
+            {% render_form_field form.city %}
+            {% render_form_field form.region %}
+            {% render_form_field form.cep %}
+            {% render_form_field form.contact_name %}
+            <input class="btn btn-success" type="submit" value="Anunciar"/>
+        </form>
+    </div>
+</div>
+
+  <script>
+    $("#id_project").change(function () {
+      var url = $("#load_groups").val();
+      var projectId = $(this).val();
+      $.ajax({
+        url: url,
+        data: {
+          'project': projectId
+        },
+        success: function (data) {
+          $("#id_group").html(data);
+        }
+      });
+
+    });
+  </script>
+{% endblock content %}

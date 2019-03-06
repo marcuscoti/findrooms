@@ -34,7 +34,7 @@ class Room(models.Model):
         ('split', 'Compartilhado para Dois'),
     )
 
-    profile = models.ForeignKey(Account, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     building = models.CharField(max_length=8, choices=BUILD_C, default='apto')
     type = models.CharField(max_length=8, choices=TYPE_C, default='one')
