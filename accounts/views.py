@@ -21,7 +21,7 @@ class AccountRegister(View):
     """
     model = Account
     form_class = RegisterForm
-    template_name = 'account_register.html'
+    template_name = 'accounts/account_register.html'
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
@@ -51,7 +51,7 @@ class AccountUpdate(View):
     """View update Account
     """
     form_class = EditAccountForm
-    template_name = 'account_edit.html'
+    template_name = 'accounts/account_edit.html'
 
     def get(self, request, pk):
         account = get_object_or_404(Account, pk=pk)
@@ -84,7 +84,7 @@ class AccountEmailChange(View):
     """View change E-Mail
     """
     form_class = ChangeEmailForm
-    template_name = 'account_change_email.html'
+    template_name = 'accounts/account_change_email.html'
 
     def get(self, request, pk):
         account = get_object_or_404(Account, pk=pk)
@@ -110,7 +110,7 @@ class AccountPasswordChange(View):
     """View password change
     """
     form_class = ChangePasswordForm
-    template_name = 'account_change_password.html'
+    template_name = 'accounts/account_change_password.html'
 
     def get(self, request, pk):
         form = self.form_class()
@@ -139,7 +139,7 @@ class LoginView(View):
     """Login View
     """
     form_class = LoginForm
-    template_name = 'account_login.html'
+    template_name = 'accounts/account_login.html'
 
     def get(self, request):
         form = self.form_class()
@@ -178,7 +178,7 @@ def generate_uuid(string_length=24):
 def send_change_pass_email(recover):
     """Method usado para enviar E-mail com token de recuperação de conta
     """
-    html_message = render_to_string('email_change_pass.html', context={'recover': recover})
+    html_message = render_to_string('accounts/email_change_pass.html', context={'recover': recover})
     send_mail('FIND ROOMS - Recuperação de Conta', '', settings.EMAIL_FROM, [recover.email], html_message=html_message)
 
 
@@ -201,7 +201,7 @@ class Recover(View):
     """View to recover account
     """
     form_class = RecoverAccountForm
-    template_name = 'account_recover.html'
+    template_name = 'accounts/account_recover.html'
 
     def get(self, request):
         form = self.form_class()

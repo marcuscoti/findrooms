@@ -1,0 +1,12 @@
+
+{% load render_form_field %}
+
+<div class="card">
+    <div class="card-header text-white bg-primary font-weight-bold">
+        Informações Básicas
+    </div>
+    <div class="card-body">
+        {% render_form_field form.title %}
+        {% render_form_field form.description %}
+    </div>
+</div>

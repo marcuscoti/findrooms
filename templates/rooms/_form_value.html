@@ -1,0 +1,16 @@
+{% load render_form_field %}
+<div class="card">
+    <div class="card-header text-white bg-primary font-weight-bold">
+        Preço
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                {% render_form_field form.value %}
+            </div>
+            <div class="col">
+                {% render_form_field form.contact_name %}
+            </div>
+        </div>
+    </div>
+</div>

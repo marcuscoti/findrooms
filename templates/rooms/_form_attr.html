@@ -1,0 +1,15 @@
+{% load render_form_field %}
+<div class="card">
+    <div class="card-header text-white bg-primary font-weight-bold">
+        Atributos e Regras
+    </div>
+    <div class="card-body">
+        {% render_check_box form.garage %}
+        {% render_check_box form.include_bills %}
+        {% render_check_box form.internet %}
+        {% render_check_box form.furniture %}
+        {% render_check_box form.smoking %}
+        {% render_check_box form.visits %}
+        {% render_check_box form.smoking %}
+    </div>
+</div>

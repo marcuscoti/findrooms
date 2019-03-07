@@ -2,21 +2,21 @@
 from __future__ import unicode_literals
 from django import forms
 from models import Room
-
+from locations.models import State, City
 
 class RoomCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RoomCreateForm, self).__init__(*args, **kwargs)
-        self.fields['group'].queryset = Group.objects.none()
-        if 'project' in self.data:
+        self.fields['city'].queryset = State.objects.none()
+        if 'state' in self.data:
             try:
-                project_id = int(self.data.get('project'))
-                self.fields['group'].queryset = Group.objects.filter(project_id=project_id)
+                state_id = int(self.data.get('state'))
+                self.fields['city'].queryset = State.objects.filter(state=state_id)
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
-            self.fields['group'].queryset = Group.objects.filter(project=self.instance.project)
+            self.fields['city'].queryset = City.objects.filter(state=self.instance.state)
 
     class Meta:
         model = Room
@@ -29,12 +29,12 @@ class RoomCreateForm(forms.ModelForm):
             'bathroom': 'Tipo de Banheiro',
             'gender': 'Gênero',
             'description': 'Descrição',
-            'smoking': 'Aceita fumantes?',
-            'garage': 'Tem garagem?',
-            'include_bills': 'Contas inclusas?',
-            'visits': 'Aceita visitas?',
-            'internet': 'Internet no local?',
-            'furniture': 'Quarto mobiliado?',
+            'smoking': 'Aceita fumantes',
+            'garage': 'Tem garagem',
+            'include_bills': 'Contas inclusas',
+            'visits': 'Aceita visitas',
+            'internet': 'Internet no local',
+            'furniture': 'Quarto mobiliado',
             'value': 'Mensalidade',
             'active': 'Ativo',
             'state': 'Estado',

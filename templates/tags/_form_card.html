@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+{% load render_form_field %}
+<div class="card">
+    <div class="card-header">
+        {{title}}
+    </div>
+    <div class="card-body">
+        {% for field in fields %}
+            {% if type == 'checkbox' %}
+                <div class="checkbox checkbox-inline">
+                    {{ field}}
+                    {{ field.label_tag }}
+                </div>
+            {% endif %}
+            {% if type == 'input' %}
+                {% render_form_field field %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+

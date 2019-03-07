@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^rooms/', include('rooms.urls', namespace='rooms')),
+    url(r'^locations/', include('locations.urls', namespace='locations')),
     url(r'^', index_view, name='index'),
 ]

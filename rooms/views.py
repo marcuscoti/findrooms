@@ -7,28 +7,31 @@ from django.views import View
 from forms import RoomCreateForm, RoomEditForm
 from django.utils import timezone
 from models import Room
+from accounts.models import Account
+from locations.models import State, City
 
 
 # Create your views here.
 class RoomCreateView(CreateView):
     model = Room
     form_class = RoomCreateForm
-    template_name = "room_create.html"
+    template_name = "rooms/room_create.html"
 
     def form_valid(self, form):
-        #form.instance.created_by = self.request.user
+        account = Account.objects.get(user=self.request.user)
+        form.instance.account = account
         return super(RoomCreateView, self).form_valid(form)
 
 
 class RoomEditView(UpdateView):
     model = Room
     form_class = RoomEditForm
-    template_name = "room_edit.html"
+    template_name = "rooms/room_edit.html"
 
 
 class RoomDetailView(DetailView):
     model = Room
-    template_name = "room_detail.html"
+    template_name = "rooms/room_detail.html"
     context_object_name = 'room'
 
     def get_context_data(self, **kwargs):
@@ -38,14 +41,8 @@ class RoomDetailView(DetailView):
 
 class RoomListView(ListView):
     context_object_name = 'room_list'
-    template_name = "room_list.html"
+    template_name = "rooms/room_list.html"
 
     def get_queryset(self):
         queryset_list = Room.objects.all()
         return queryset_list
-
-
-def ajax_load_groups(request):
-   project = request.GET.get('project', None)
-   groups = Group.objects.filter(project_id=project)
-   return render(request, 'group_dropdown_list_options.html', {'groups': groups})
