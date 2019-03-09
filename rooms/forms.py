@@ -8,15 +8,16 @@ class RoomCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RoomCreateForm, self).__init__(*args, **kwargs)
-        self.fields['city'].queryset = State.objects.none()
+        self.label_suffix = ""
+        self.fields['city'].queryset = City.objects.none()
         if 'state' in self.data:
             try:
                 state_id = int(self.data.get('state'))
-                self.fields['city'].queryset = State.objects.filter(state=state_id)
+                self.fields['city'].queryset = City.objects.filter(state=state_id)
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
-            self.fields['city'].queryset = City.objects.filter(state=self.instance.state)
+            self.fields['city'].queryset = self.instance.state.city_set.order_by('name')
 
     class Meta:
         model = Room

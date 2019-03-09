@@ -64,5 +64,36 @@ class Room(models.Model):
     def __str__(self):
         return self.title
 
+    def get_full_location(self):
+        location = self.city.name + "-" + self.state.code
+        return location
+
+    def get_gender(self):
+        for value in self.GENDER_C:
+            if value[0] == self.gender:
+                return value[1]
+
+    def get_build(self):
+        for value in self.BUILD_C:
+            if value[0] == self.building:
+                return value[1]
+
+    def get_type(self):
+        for value in self.TYPE_C:
+            if value[0] == self.type:
+                return value[1]
+
+    def get_bath(self):
+        for value in self.BATH_C:
+            if value[0] == self.bathroom:
+                return value[1]
+
+    def get_bool_field(self, field):
+        value = self.__getattribute__(field)
+        if value:
+            return "Sim"
+        else:
+            return "Não"
+
     class Meta:
         verbose_name_plural = "Rooms"
