@@ -1,0 +1,58 @@
+{% load render_form_field %}
+<div class="card">
+    <div class="card-header text-white bg-success font-weight-bold">
+        {{room.title}}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-4">
+                <div class="" id="imagem">
+
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col">
+                        {{room.get_build}}
+                        {{room.get_full_location}}
+                        {{room.value}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{room.description|truncatechars:200}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <small>
+                                <li>Quarto {{room.get_type}}</li>
+                                <li>Banheiro {{room.get_bath}}</li>
+                                <li>Para {{room.get_gender}}</li>
+                            </small>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <small>
+                                <li>{{room.visits|boolfield:'accept'}} visitas</li>
+                                <li>{{room.smoking|boolfield:'accept'}} fumantes</li>
+                                <li>{{room.garage|boolfield:'has'}} garagem</li>
+                            </small>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer bg-light text-right">
+        <a class="btn btn-primary" href="#" role="button">Editar Fotos</a>
+        <a class="btn btn-success" href="#" role="button">Editar</a>
+        <a class="btn btn btn-warning" href="#" role="button">Desativar</a>
+        <a class="btn btn btn-danger" href="#" role="button">Remover</a>
+    </div>
+</div>

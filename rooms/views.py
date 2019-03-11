@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.conf import settings
 from django.views.generic import DetailView, CreateView, ListView, UpdateView
 from django.views import View
@@ -16,6 +17,7 @@ class RoomCreateView(CreateView):
     model = Room
     form_class = RoomCreateForm
     template_name = "rooms/room_create.html"
+    success_url = reverse_lazy('rooms:list')
 
     def form_valid(self, form):
         account = Account.objects.get(user=self.request.user)
