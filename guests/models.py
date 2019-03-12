@@ -14,7 +14,7 @@ class Guest(models.Model):
         ('ND', 'Não Informado'),
     )
 
-    profile = models.ForeignKey(Account, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     gender = models.CharField(max_length=3, choices=GENDER_C, default='ND')
     age = models.IntegerField(validators=[MinValueValidator(18), MaxValueValidator(99)])
