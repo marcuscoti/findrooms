@@ -40,7 +40,7 @@ class Room(models.Model):
     type = models.CharField(max_length=8, choices=TYPE_C, default='one')
     bathroom = models.CharField(max_length=8, choices=BATH_C, default='priv')
     gender = models.CharField(max_length=3, choices=GENDER_C, default='ND')
-    description = models.TextField(max_length=200, default="Não informado")
+    description = models.TextField(max_length=400, default="")
     smoking = models.BooleanField(default=False)
     garage = models.BooleanField(default=False)
     include_bills = models.BooleanField(default=False)
@@ -51,8 +51,8 @@ class Room(models.Model):
     active = models.BooleanField(default=True)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    region = models.CharField(max_length=20, default='Não Informado')
-    cep = models.CharField(max_length=12, default='Não Informado')
+    region = models.CharField(max_length=20, default='')
+    cep = models.CharField(max_length=12, null=True, blank=True, default='')
     contact_name = models.CharField(max_length=30, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -94,6 +94,12 @@ class Room(models.Model):
             return "Sim"
         else:
             return "Não"
+
+    def active_toogle(self):
+        if self.active:
+            self.active = False
+        else:
+            self.active = True
 
     class Meta:
         verbose_name_plural = "Rooms"

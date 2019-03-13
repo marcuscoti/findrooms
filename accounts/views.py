@@ -143,7 +143,7 @@ class LoginView(View):
 
     def get(self, request):
         form = self.form_class()
-        context_data = {'form': form,}
+        context_data = {'form': form, }
         return render(request, self.template_name, context_data)
 
     def post(self, request):

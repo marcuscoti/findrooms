@@ -8,7 +8,7 @@ User = get_user_model()
 class Account(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    whatsapp = models.CharField(max_length=15)
+    whatsapp = models.CharField(max_length=15, unique=True)
 
     def __unicode__(self):
         full_name = self.user.first_name + " " + self.user.last_name

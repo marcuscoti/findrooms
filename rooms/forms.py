@@ -4,10 +4,10 @@ from django import forms
 from models import Room
 from locations.models import State, City
 
-class RoomCreateForm(forms.ModelForm):
+class RoomForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super(RoomCreateForm, self).__init__(*args, **kwargs)
+        super(RoomForm, self).__init__(*args, **kwargs)
         self.label_suffix = ""
         self.fields['city'].queryset = City.objects.none()
         if 'state' in self.data:
@@ -44,8 +44,3 @@ class RoomCreateForm(forms.ModelForm):
             'cep': 'CEP',
             'contact_name': 'Nome do Contato',
         }
-
-
-class RoomEditForm(forms.ModelForm):
-    pass
-

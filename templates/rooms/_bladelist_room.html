@@ -1,6 +1,10 @@
 {% load render_form_field %}
 <div class="card">
+        {% if room.active %}
     <div class="card-header text-white bg-success font-weight-bold">
+        {% else %}
+        <div class="card-header text-black bg-warning font-weight-bold">
+        {% endif %}
         {{room.title}}
     </div>
     <div class="card-body">
@@ -11,11 +15,15 @@
                 </div>
             </div>
             <div class="col-8">
-                <div class="row">
+                <div class="row text-center">
                     <div class="col">
-                        {{room.get_build}}
-                        {{room.get_full_location}}
-                        {{room.value}}
+                        <h5>{{room.get_build}}</h5>
+                    </div>
+                    <div class="col">
+                        <h5>{{room.get_full_location}}</h5>
+                    </div>
+                    <div class="col">
+                        <h5>R${{room.value}}</h5>
                     </div>
                 </div>
                 <br>
@@ -51,8 +59,12 @@
     </div>
     <div class="card-footer bg-light text-right">
         <a class="btn btn-primary" href="#" role="button">Editar Fotos</a>
-        <a class="btn btn-success" href="#" role="button">Editar</a>
-        <a class="btn btn btn-warning" href="#" role="button">Desativar</a>
-        <a class="btn btn btn-danger" href="#" role="button">Remover</a>
+        <a class="btn btn-success" href="{% url 'rooms:edit' room.id %}" role="button">Editar</a>
+        {% if room.active %}
+            <a class="btn btn btn-warning" href="{% url 'rooms:active' room.id %}" role="button">Desativar</a>
+        {% else %}
+            <a class="btn btn btn-success" href="{% url 'rooms:active' room.id %}" role="button">Ativar</a>
+        {% endif %}
+        <a class="btn btn btn-danger" href="{% url 'rooms:delete' room.id %}" role="button">Remover</a>
     </div>
 </div>

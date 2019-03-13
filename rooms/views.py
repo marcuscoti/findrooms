@@ -3,9 +3,11 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.conf import settings
-from django.views.generic import DetailView, CreateView, ListView, UpdateView
+from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views import View
-from forms import RoomCreateForm, RoomEditForm
+from forms import RoomForm
 from django.utils import timezone
 from models import Room
 from accounts.models import Account
@@ -13,9 +15,10 @@ from locations.models import State, City
 
 
 # Create your views here.
-class RoomCreateView(CreateView):
+class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
-    form_class = RoomCreateForm
+
+    form_class = RoomForm
     template_name = "rooms/room_create.html"
     success_url = reverse_lazy('rooms:list')
 
@@ -25,11 +28,15 @@ class RoomCreateView(CreateView):
         return super(RoomCreateView, self).form_valid(form)
 
 
-class RoomEditView(UpdateView):
+class RoomEditView(LoginRequiredMixin, UpdateView):
     model = Room
-    form_class = RoomEditForm
+    form_class = RoomForm
     template_name = "rooms/room_edit.html"
+    success_url = reverse_lazy('rooms:list')
 
+    def get_queryset(self):
+        account = Account.objects.get(user=self.request.user)
+        return Room.objects.filter(account=account)
 
 class RoomDetailView(DetailView):
     model = Room
@@ -41,10 +48,28 @@ class RoomDetailView(DetailView):
         return context
 
 
-class RoomListView(ListView):
+class RoomListView(LoginRequiredMixin, ListView):
     context_object_name = 'room_list'
     template_name = "rooms/room_list.html"
 
     def get_queryset(self):
-        queryset_list = Room.objects.all()
+        account = Account.objects.get(user=self.request.user)
+        queryset_list = Room.objects.filter(account=account)
         return queryset_list
+
+
+class RoomDeleteView(LoginRequiredMixin, DeleteView):
+    model = Room
+    success_url = reverse_lazy('rooms:list')
+
+    def get_queryset(self):
+        account = Account.objects.get(user=self.request.user)
+        return Room.objects.filter(account=account)
+
+@login_required
+def room_active_toggle(request, pk):
+    account = Account.objects.get(user=self.request.user)
+    room = Room.objects.get(pk=pk, account=account)
+    room.active_toogle()
+    room.save()
+    return redirect('rooms:list')
