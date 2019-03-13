@@ -16,8 +16,9 @@ from locations.models import State, City
 
 # Create your views here.
 class RoomCreateView(LoginRequiredMixin, CreateView):
+    """View create Room
+    """
     model = Room
-
     form_class = RoomForm
     template_name = "rooms/room_create.html"
     success_url = reverse_lazy('rooms:list')
@@ -29,6 +30,8 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
 
 
 class RoomEditView(LoginRequiredMixin, UpdateView):
+    """View edit Room
+    """
     model = Room
     form_class = RoomForm
     template_name = "rooms/room_edit.html"
@@ -38,7 +41,10 @@ class RoomEditView(LoginRequiredMixin, UpdateView):
         account = Account.objects.get(user=self.request.user)
         return Room.objects.filter(account=account)
 
+
 class RoomDetailView(DetailView):
+    """View detail Room - NOT USED
+    """
     model = Room
     template_name = "rooms/room_detail.html"
     context_object_name = 'room'
@@ -49,6 +55,8 @@ class RoomDetailView(DetailView):
 
 
 class RoomListView(LoginRequiredMixin, ListView):
+    """View list Rooms by specific account
+    """
     context_object_name = 'room_list'
     template_name = "rooms/room_list.html"
 
@@ -59,6 +67,8 @@ class RoomListView(LoginRequiredMixin, ListView):
 
 
 class RoomDeleteView(LoginRequiredMixin, DeleteView):
+    """View delete Rooms
+    """
     model = Room
     success_url = reverse_lazy('rooms:list')
 
@@ -66,9 +76,12 @@ class RoomDeleteView(LoginRequiredMixin, DeleteView):
         account = Account.objects.get(user=self.request.user)
         return Room.objects.filter(account=account)
 
+
 @login_required
 def room_active_toggle(request, pk):
-    account = Account.objects.get(user=self.request.user)
+    """View to active/deactive Rooms
+    """
+    account = Account.objects.get(user=request.user)
     room = Room.objects.get(pk=pk, account=account)
     room.active_toogle()
     room.save()
