@@ -55,21 +55,21 @@ class AccountUpdate(View):
     form_class = EditAccountForm
     template_name = 'accounts/account_edit.html'
 
-    def get(self, request, pk):
-        account = get_object_or_404(Account, pk=pk)
+    def get(self, request):
+        account = Account.objects.get(user=self.request.user)
         data = {
-            'name' : account.user.first_name,
+            'name': account.user.first_name,
             'surname': account.user.last_name,
             'whatsapp': account.whatsapp
         }
         form = self.form_class(data)
-        context_data = {'form': form,}
+        context_data = {'form': form}
         return render(request, self.template_name, context_data)
 
-    def post(self, request, pk):
+    def post(self, request):
         form = self.form_class(request.POST or None)
         if form.is_valid():
-            account = get_object_or_404(Account, pk=pk)
+            account = Account.objects.get(user=self.request.user)
             user = account.user
             user.first_name = form.cleaned_data.get('name')
             user.last_name = form.cleaned_data.get('surname')
@@ -88,14 +88,14 @@ class AccountEmailChange(View):
     form_class = ChangeEmailForm
     template_name = 'accounts/account_change_email.html'
 
-    def get(self, request, pk):
-        account = get_object_or_404(Account, pk=pk)
+    def get(self, request):
+        account = Account.objects.get(user=self.request.user)
         form = self.form_class()
         context_data = {'form': form, 'account':account}
         return render(request, self.template_name, context_data)
 
-    def post(self, request, pk):
-        account = get_object_or_404(Account, pk=pk)
+    def post(self, request):
+        account = Account.objects.get(user=self.request.user)
         form = self.form_class(request.POST or None)
         if form.is_valid():
             user = account.user
@@ -114,13 +114,13 @@ class AccountPasswordChange(View):
     form_class = ChangePasswordForm
     template_name = 'accounts/account_change_password.html'
 
-    def get(self, request, pk):
+    def get(self, request):
         form = self.form_class()
-        context_data = {'form': form,}
+        context_data = {'form': form}
         return render(request, self.template_name, context_data)
 
-    def post(self, request, pk):
-        account = get_object_or_404(Account, pk=pk)
+    def post(self, request):
+        account = Account.objects.get(user=self.request.user)
         form = self.form_class(request.POST or None)
         if form.is_valid():
             user = account.user

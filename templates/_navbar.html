@@ -15,8 +15,8 @@
               Conta
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{% url 'accounts:update' request.user.id %}">Alterar Dados</a>
-              <a class="dropdown-item" href="{% url 'accounts:change_password' request.user.id %}">Trocar Senha</a>
+              <a class="dropdown-item" href="{% url 'accounts:update'  %}">Alterar Dados</a>
+              <a class="dropdown-item" href="{% url 'accounts:change_password' %}">Trocar Senha</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'accounts:logout' %}">Sair</a>
             </div>
