@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load render_form_field %}
+{% block head_title %}
+    {{block.super}} | Sua Conta
+{% endblock head_title %}
+
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        {% include 'guests/guest_list.html' %}
+        <br>
+        {% include 'rooms/room_list.html' %}
+    </div>
+</div>
+
+{% endblock content %}

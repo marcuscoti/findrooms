@@ -21,7 +21,7 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
     form_class = RoomForm
     template_name = "rooms/room_create.html"
-    success_url = reverse_lazy('rooms:list')
+    success_url = reverse_lazy('accounts:list_announcements')
 
     def form_valid(self, form):
         account = Account.objects.get(user=self.request.user)
@@ -35,7 +35,7 @@ class RoomEditView(LoginRequiredMixin, UpdateView):
     model = Room
     form_class = RoomForm
     template_name = "rooms/room_edit.html"
-    success_url = reverse_lazy('rooms:list')
+    success_url = reverse_lazy('accounts:list_announcements')
 
     def get_queryset(self):
         account = Account.objects.get(user=self.request.user)
@@ -70,7 +70,7 @@ class RoomDeleteView(LoginRequiredMixin, DeleteView):
     """View delete Rooms
     """
     model = Room
-    success_url = reverse_lazy('rooms:list')
+    success_url = reverse_lazy('accounts:list_announcements')
 
     def get_queryset(self):
         account = Account.objects.get(user=self.request.user)
@@ -85,4 +85,4 @@ def room_active_toggle(request, pk):
     room = Room.objects.get(pk=pk, account=account)
     room.active_toogle()
     room.save()
-    return redirect('rooms:list')
+    return redirect('accounts:list_announcements')

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load render_form_field %}
+{% block head_title %}
+    {{block.super}} | Sua Conta
+{% endblock head_title %}
+
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-2">
+        <a role="button" class="btn btn-primary btn-sm btn-block" href="{% url 'accounts:update' account.id %}">Minha Conta</a>
+        <a role="button" class="btn btn-primary btn-sm btn-block" href="{% url 'accounts:list_announcements' %}">Meus anúncios</a>
+        <a role="button" class="btn btn-primary btn-sm btn-block" href="{% url 'accounts:change_password' account.id %}">Alterar Senha</a>
+        <a role="button" class="btn btn-primary btn-sm btn-block" href="{% url 'accounts:logout' %}">Sair</a>
+    </div>
+    <div class="col-9">
+
+    </div>
+</div>
+
+{% endblock content %}

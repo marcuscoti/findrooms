@@ -21,7 +21,7 @@ class GuestCreateView(LoginRequiredMixin, CreateView):
     model = Guest
     form_class = GuestForm
     template_name = "guests/guest_create.html"
-    success_url = reverse_lazy('guests:list')
+    success_url = reverse_lazy('accounts:list_announcements')
 
     def form_valid(self, form):
         account = Account.objects.get(user=self.request.user)
@@ -35,7 +35,7 @@ class GuestEditView(LoginRequiredMixin, UpdateView):
     model = Guest
     form_class = GuestForm
     template_name = "guests/guest_edit.html"
-    success_url = reverse_lazy('guests:list')
+    success_url = reverse_lazy('accounts:list_announcements')
 
     def get_queryset(self):
         account = Account.objects.get(user=self.request.user)
@@ -77,7 +77,7 @@ class GuestDeleteView(LoginRequiredMixin, DeleteView):
     """View delete Guest profile
     """
     model = Guest
-    success_url = reverse_lazy('guests:list')
+    success_url = reverse_lazy('accounts:list_announcements')
 
     def get_queryset(self):
         account = Account.objects.get(user=self.request.user)
@@ -92,4 +92,4 @@ def guest_active_toggle(request, pk):
     guest = Guest.objects.get(pk=pk, account=account)
     guest.active_toogle()
     guest.save()
-    return redirect('guests:list')
+    return redirect('accounts:list_announcements')

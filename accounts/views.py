@@ -11,6 +11,8 @@ from django.views import View
 from models import Account, RecoverAccount
 from forms import RegisterForm, LoginForm, EditAccountForm, ChangeEmailForm, ChangePasswordForm, RecoverAccountForm
 from django.utils import timezone
+from guests.models import Guest
+from rooms.models import Room
 import uuid
 
 User = get_user_model()
@@ -131,9 +133,30 @@ class AccountPasswordChange(View):
         return render(request, self.template_name, context_data)
 
 
-class ProfileDetail(DetailView):
-    pass
+class AccountDashboard(View):
+    """Dashboard view
+    """
+    template_name = 'accounts/account_dashboard.html'
 
+    def get(self, request):
+        account = Account.objects.get(user=self.request.user)
+
+        context_data = {'account': account, }
+        return render(request, self.template_name, context_data)
+
+
+class AccountAnnouncements(View):
+    """List announcements
+    """
+    template_name = 'accounts/account_list_announce.html'
+
+    def get(self, request):
+        account = Account.objects.get(user=self.request.user)
+        guest_list = Guest.objects.filter(account=account)
+        count_guests = guest_list.count()
+        room_list = Room.objects.filter(account=account)
+        context_data = {'account': account, 'guest_list': guest_list, 'count_guests': count_guests, 'room_list': room_list}
+        return render(request, self.template_name, context_data)
 
 class LoginView(View):
     """Login View
@@ -154,7 +177,7 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, 'SUCCESS')
-            return redirect('rooms:list')
+            return redirect('accounts:dashboard')
         context_data = {'form': form}
         return render(request, self.template_name, context_data)
 
