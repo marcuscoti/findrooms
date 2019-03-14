@@ -154,7 +154,7 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, 'SUCCESS')
-            return redirect('accounts:login')
+            return redirect('rooms:list')
         context_data = {'form': form}
         return render(request, self.template_name, context_data)
 

@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
 User = get_user_model()
 
+
 class RegisterForm(forms.Form):
 
     email = forms.EmailField(label='E-mail')
@@ -34,13 +35,11 @@ class RegisterForm(forms.Form):
         return super(RegisterForm, self).clean(*args, **kwargs)
 
 
-
 class EditAccountForm(forms.Form):
 
     name = forms.CharField(label='Nome')
     surname = forms.CharField(label='Sobrenome')
     whatsapp = forms.CharField(label='WhatsApp')
-
 
 
 class ChangeEmailForm(forms.Form):
@@ -58,7 +57,6 @@ class ChangeEmailForm(forms.Form):
             if emails_qs.exists():
                 self.add_error('email', 'Este email já existe, use outro!')
         return super(ChangeEmailForm, self).clean(*args, **kwargs)
-
 
 
 class ChangePasswordForm(forms.Form):
