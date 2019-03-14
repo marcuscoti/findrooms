@@ -1,0 +1,16 @@
+{% load render_form_field %}
+<div class="card">
+    <div class="card-header text-white bg-primary font-weight-bold">
+        Localização
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+                {% render_form_field form.state %}
+            </div>
+            <div class="col-6">
+                {% render_form_field form.city %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load render_form_field %}
+{% block head_title %}
+    {{block.super}} | Exclusão de Perfil
+{% endblock head_title %}
+
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <p>Você realmente deseja excluir este perfil?</p>
+    <input class="btn btn-danger" type="submit" value="Sim" />
+    <a class="btn btn btn-primary" href="{% url 'rooms:list' %}" role="button">Voltar</a>
+</form>
+{% endblock content %}
+
+

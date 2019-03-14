@@ -1,0 +1,26 @@
+{% load widget_tweaks %}
+{% load render_form_field %}
+<div class="card">
+    <div class="card-header text-white bg-primary font-weight-bold">
+        Sobre Você
+    </div>
+    <div class="card-body">
+        <div class="row">
+
+        </div>
+        <div class="row">
+            <div class="col">
+                {% render_check_box form.work %}
+                {% render_check_box form.study %}
+                {% render_check_box form.smoking %}
+                {% render_check_box form.garage %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                {% render_text_area form.description %}
+            </div>
+        </div>
+    </div>
+</div>

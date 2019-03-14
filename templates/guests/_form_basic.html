@@ -1,0 +1,37 @@
+{% load widget_tweaks %}
+{% load render_form_field %}
+
+<div class="card">
+    <div class="card-header text-white bg-primary font-weight-bold">
+        Informações Básicas
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                {% render_form_field form.name %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                {% render_form_field form.gender %}
+            </div>
+            <div class="col-4">
+                {% render_form_field form.age %}
+            </div>
+            <div class="col-4">
+                {{ form.max_value.label_tag }}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">R$</span>
+                    </div>
+                    {{ form.max_value|add_class:"form-control"}}
+                    {% if form.max_value.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.max_value.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

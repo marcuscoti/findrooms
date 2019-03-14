@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load render_form_field %}
+{% block head_title %}
+    {{block.super}} | Anúncios de Quartos
+{% endblock head_title %}
+
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-7">
+        <h2>Perfil de Hóspede</h2>
+    </div>
+    <div class="col-2 text-right">
+        {% if count_guests == 0 %}
+            <a class="btn btn-primary" href="{% url 'guests:create' %} " role="button">Criar Perfil</a>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-9">
+        {% for guest in guest_list %}
+            {% include 'guests/_bladelist_guest.html' %}
+        <br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

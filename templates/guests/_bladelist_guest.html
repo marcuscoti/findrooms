@@ -1,0 +1,64 @@
+{% load render_form_field %}
+<div class="card">
+        {% if guest.active %}
+    <div class="card-header text-white bg-success font-weight-bold">
+        {% else %}
+        <div class="card-header text-black bg-warning font-weight-bold">
+        {% endif %}
+        {{guest.name}}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-4">
+                <div class="" id="imagem">
+
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="row text-center">
+                    <div class="col">
+                        <h5>{{guest.get_gender}}</h5>
+                    </div>
+                    <div class="col">
+                        <h5>{{guest.get_full_location}}</h5>
+                    </div>
+                    <div class="col">
+                        <h5>R${{guest.max_value}}</h5>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{guest.description|truncatechars:200}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li><small>Trabalha: {{guest.work|boolfield:'yesno'}}</small></li>
+                            <li><small>Estuda: {{guest.study|boolfield:'yesno'}}</small></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><small>Fumante: {{guest.smoking|boolfield:'yesno'}}</small></li>
+                            <li><small>Tem veículo: {{guest.garage|boolfield:'yesno'}}</small></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer bg-light text-right">
+        <a class="btn btn-primary" href="#" role="button">Editar Fotos</a>
+        <a class="btn btn-success" href="{% url 'guests:edit' guest.id %}" role="button">Editar</a>
+        {% if guest.active %}
+            <a class="btn btn btn-warning" href="{% url 'guests:active' guest.id %}" role="button">Desativar</a>
+        {% else %}
+            <a class="btn btn btn-success" href="{% url 'guests:active' guest.id %}" role="button">Ativar</a>
+        {% endif %}
+        <a class="btn btn btn-danger" href="{% url 'guests:delete' guest.id %}" role="button">Remover</a>
+    </div>
+</div>

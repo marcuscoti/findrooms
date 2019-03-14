@@ -37,5 +37,27 @@ class Guest(models.Model):
     def __str__(self):
         return self.name
 
+    def get_full_location(self):
+        location = self.city.name + "-" + self.state.code
+        return location
+
+    def get_gender(self):
+        for value in self.GENDER_C:
+            if value[0] == self.gender:
+                return value[1]
+
+    def get_bool_field(self, field):
+        value = self.__getattribute__(field)
+        if value:
+            return "Sim"
+        else:
+            return "Não"
+
+    def active_toogle(self):
+        if self.active:
+            self.active = False
+        else:
+            self.active = True
+
     class Meta:
         verbose_name_plural = "Guests"

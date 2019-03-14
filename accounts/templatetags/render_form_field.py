@@ -15,6 +15,11 @@ def render_check_box(field):
     return {'field': field}
 
 
+@register.inclusion_tag('tags/_text_area.html')
+def render_text_area(field):
+    return {'field': field}
+
+
 @register.filter(name='boolfield')
 def boolfield(value, arg):
     if value:
